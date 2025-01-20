@@ -9,13 +9,13 @@ def lambda_handler(event, context):
     for record in event['Records']:
         bucket = record['s3']['bucket']['name']
         key = record['s3']['object']['key']
-        message = f'Image uploaded to bucket {bucket} with key {key}'
+        message = f'An Object is uploaded to bucket {bucket} with key {key}'
         
         # Publish message to SNS
         sns_client.publish(
             TopicArn=topic_arn,
             Message=message,
-            Subject='Image Upload Notification'
+            Subject='Object Upload Notification in S3'
         )
         
     return {
